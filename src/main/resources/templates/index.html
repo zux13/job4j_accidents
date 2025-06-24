@@ -34,7 +34,7 @@
             <td th:text="${accident.text}">Проезд на красный</td>
             <td><span class="badge bg-secondary">Ожидает</span></td>
             <td>—</td>
-            <td><a th:href="@{/edit/{id}(id=${accident.id})}" class="btn btn-sm btn-outline-primary">Редактировать</a></td>
+            <td><a th:href="@{|/edit?id=${accident.id}|}" class="btn btn-sm btn-outline-primary">Редактировать</a></td>
         </tr>
         <tr th:if="${accidents.isEmpty()}">
             <td colspan="7" class="text-center text-muted">Заявления пока не добавлены</td>
