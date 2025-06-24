@@ -21,6 +21,7 @@
             <th>Адрес</th>
             <th>Номер авто</th>
             <th>Описание</th>
+            <th>Тип</th>
             <th>Статус</th>
             <th>Фото</th>
             <th>Действия</th>
@@ -32,6 +33,7 @@
             <td th:text="${accident.address}">ул. Пушкина</td>
             <td th:text="${accident.name}">А123БВ</td>
             <td th:text="${accident.text}">Проезд на красный</td>
+            <td th:text="${accident.type.name}">Проезд на красный</td>
             <td><span class="badge bg-secondary">Ожидает</span></td>
             <td>—</td>
             <td><a th:href="@{|/edit?id=${accident.id}|}" class="btn btn-sm btn-outline-primary">Редактировать</a></td>

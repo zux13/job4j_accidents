@@ -27,6 +27,17 @@
                    placeholder="ул. Пушкина, д. 10">
         </div>
 
+        <div class="mb-3">
+            <label for="type.id">Тип</label>
+            <select class="form-control" id="type.id" name="type.id">
+                <option th:each="type : ${types}"
+                        th:value="${type.id}"
+                        th:text="${type.name}"
+                        th:selected="${type.id} == *{type.id}">
+                </option>
+            </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Обновить</button>
         <a th:href="@{/}" class="btn btn-secondary ms-2">Отмена</a>
     </form>

@@ -28,6 +28,15 @@
         </div>
 
         <div class="mb-3">
+            <label for="type.id">Тип</label>
+            <select class="form-control" id="type.id"  name="type.id">
+                <option th:each="type: ${types}"
+                        th:text="${type.name}"
+                        th:value="${type.id}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
             <label for="photo" class="form-label">Фотография нарушения (необязательно)</label>
             <input type="file" class="form-control" id="photo" name="photo" disabled>
         </div>
