@@ -62,8 +62,18 @@
         </tr>
         </thead>
         <tbody>
-        <!-- Плейсхолдер для заявлений -->
-        <tr>
+        <tr th:each="accident : ${accidents}">
+            <td th:text="${accident.id}">1</td>
+            <td th:text="${accident.address}">ул. Пушкина, д. 10</td>
+            <td th:text="${accident.name}">А123БВ</td>
+            <td th:text="${accident.text}">Проезд на красный свет</td>
+            <td><span class="badge bg-secondary">Ожидает</span></td> <!-- Статус можно внедрить позже -->
+            <td>—</td> <!-- Фото можно внедрить позже -->
+            <td>
+                <a href="#" class="btn btn-sm btn-outline-primary">Посмотреть</a>
+            </td>
+        </tr>
+        <tr th:if="${accidents.isEmpty()}">
             <td colspan="7" class="text-center text-muted">Заявления пока не добавлены</td>
         </tr>
         </tbody>
