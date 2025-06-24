@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head th:replace="fragments/header :: header('Создание заявления')"></head>
+<body>
+<div th:replace="fragments/nav :: nav"></div>
+
+<div class="container mt-4">
+    <h2 class="mb-4">Новое заявление о нарушении</h2>
+
+    <form th:action="@{/save}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="0"/>
+
+        <div class="mb-3">
+            <label for="name" class="form-label">Номер автомобиля</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="А123БВ">
+        </div>
+
+        <div class="mb-3">
+            <label for="text" class="form-label">Описание нарушения</label>
+            <textarea class="form-control" id="text" name="text" rows="3"
+                      placeholder="Например, проезд на красный свет"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="address" class="form-label">Адрес происшествия</label>
+            <input type="text" class="form-control" id="address" name="address"
+                   placeholder="ул. Пушкина, д. 10">
+        </div>
+
+        <div class="mb-3">
+            <label for="photo" class="form-label">Фотография нарушения (необязательно)</label>
+            <input type="file" class="form-control" id="photo" name="photo" disabled>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a th:href="@{/}" class="btn btn-secondary ms-2">Отмена</a>
+    </form>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
