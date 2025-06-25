@@ -72,4 +72,9 @@ public class AccidentController {
         return "redirect:/index";
     }
 
+    @GetMapping("/delete")
+    public String delete(@RequestParam("id") int id) {
+        accidentService.delete(id);
+        return "redirect:/index";
+    }
 }

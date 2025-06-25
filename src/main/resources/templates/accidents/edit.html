@@ -51,6 +51,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Обновить</button>
+        <a th:href="@{|/delete?id=${accident.id}|}" class="btn btn-danger">Удалить</a>
         <a th:href="@{/}" class="btn btn-secondary ms-2">Отмена</a>
     </form>
 </div>
