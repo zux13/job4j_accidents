@@ -3,7 +3,7 @@ package ru.job4j.accidents.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.AccidentType;
-import ru.job4j.accidents.repository.AccidentTypeRepository;
+import ru.job4j.accidents.repository.SpringDataAccidentTypeRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -11,27 +11,29 @@ import java.util.NoSuchElementException;
 @Service
 @AllArgsConstructor
 public class AccidentTypeService {
-    private final AccidentTypeRepository accidentTypeRepository;
+
+    private final SpringDataAccidentTypeRepository accidentTypeRepository;
 
     public AccidentType create(AccidentType accidentType) {
-        return accidentTypeRepository.create(accidentType);
+        return accidentTypeRepository.save(accidentType);
     }
 
     public AccidentType get(int id) {
-        return accidentTypeRepository.get(id)
-                .orElseThrow(() -> new NoSuchElementException("AccidentType with id " + id + "not found"));
+        return accidentTypeRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("AccidentType with id " + id + " not found"));
     }
 
     public void update(AccidentType accidentType) {
-        accidentTypeRepository.update(accidentType);
+        if (get(accidentType.getId()) != null) {
+            accidentTypeRepository.save(accidentType);
+        }
     }
 
     public void delete(int id) {
-        accidentTypeRepository.delete(id);
+        accidentTypeRepository.deleteById(id);
     }
 
     public List<AccidentType> findAll() {
-        return accidentTypeRepository.findAll();
+        return (List<AccidentType>) accidentTypeRepository.findAll();
     }
-
 }
