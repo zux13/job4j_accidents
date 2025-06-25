@@ -9,6 +9,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import ru.job4j.accidents.model.User;
+import ru.job4j.accidents.repository.SpringDataAuthorityRepository;
+import ru.job4j.accidents.repository.SpringDataUserRepository;
 
 import javax.sql.DataSource;
 
@@ -25,20 +28,33 @@ public class SecurityConfig {
     }
 
     @Bean
-    public JdbcUserDetailsManager jdbcUserDetailsManager(PasswordEncoder passwordEncoder) {
+    public JdbcUserDetailsManager jdbcUserDetailsManager(PasswordEncoder passwordEncoder,
+                                                     SpringDataUserRepository userRepository,
+                                                     SpringDataAuthorityRepository authorityRepository) {
         JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
 
-        if (!manager.userExists("user")) {
-            manager.createUser(org.springframework.security.core.userdetails.User.withUsername("user")
-                    .password(passwordEncoder.encode("123456"))
-                    .roles("USER")
-                    .build());
-        }
-        if (!manager.userExists("admin")) {
-            manager.createUser(org.springframework.security.core.userdetails.User.withUsername("admin")
-                    .password(passwordEncoder.encode("123456"))
-                    .roles("USER", "ADMIN")
-                    .build());
+        manager.setUsersByUsernameQuery(
+                "select username, password, enabled from users where username = ?"
+        );
+
+        manager.setAuthoritiesByUsernameQuery(
+                """
+                select u.username, a.authority
+                from users u
+                join authorities a on u.authority_id = a.id
+                where u.username = ?
+                """
+        );
+
+        if (userRepository.findByName("root").isEmpty()) {
+
+            User root = new User();
+            root.setName("root");
+            root.setPassword(passwordEncoder.encode("secret"));
+            root.setAuthority(authorityRepository.findByAuthority("ROLE_ADMIN"));
+            root.setEnabled(true);
+
+            userRepository.save(root);
         }
 
         return manager;
@@ -49,6 +65,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
+                        .requestMatchers("/register").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
