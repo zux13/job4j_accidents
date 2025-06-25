@@ -29,10 +29,21 @@
 
         <div class="mb-3">
             <label for="type.id">Тип</label>
-            <select class="form-control" id="type.id"  name="type.id">
-                <option th:each="type: ${types}"
-                        th:text="${type.name}"
-                        th:value="${type.id}"></option>
+            <select class="form-control" id="type.id" name="type.id" required>
+                <option value="" selected>-- Выберите тип --</option>
+                <option th:each="type : ${types}"
+                        th:value="${type.id}"
+                        th:text="${type.name}">
+                </option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="type.id" name="rIds">Выберите статьи</label>
+            <select class="form-control" id="rIds" name="rIds" multiple>
+                <option th:each="rule: ${rules}"
+                        th:text="${rule.name}"
+                        th:value="${rule.id}"></option>
             </select>
         </div>
 
