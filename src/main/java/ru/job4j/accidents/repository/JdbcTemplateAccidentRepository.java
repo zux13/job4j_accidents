@@ -1,7 +1,6 @@
 package ru.job4j.accidents.repository;
 
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -12,7 +11,6 @@ import ru.job4j.accidents.model.Rule;
 import java.util.*;
 
 @Repository
-@Primary
 @AllArgsConstructor
 public class JdbcTemplateAccidentRepository implements AccidentRepository {
     private final JdbcTemplate jdbc;
