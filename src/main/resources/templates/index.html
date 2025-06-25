@@ -7,6 +7,10 @@
 <div class="container mt-4">
     <h1 class="mb-4">Таблица нарушений</h1>
 
+    <div class="alert alert-warning" role="alert" th:if="${username}">
+        Да это же, <b th:text="${username}">username</b>!
+    </div>
+
     <table class="table table-striped">
         <thead class="table-dark">
         <tr>
