@@ -3,12 +3,11 @@ package ru.job4j.accidents.controller;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.job4j.accidents.config.TestConfiguration;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.model.Rule;
@@ -24,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 @WebMvcTest(AccidentController.class)
-@Import(AccidentControllerTest.TestConfig.class)
+@Import(TestConfiguration.class)
 class AccidentControllerTest {
 
     @Autowired
@@ -38,24 +37,6 @@ class AccidentControllerTest {
 
     @Autowired
     private RuleService ruleService;
-
-    @TestConfiguration
-    static class TestConfig {
-        @Bean
-        public AccidentService accidentService() {
-            return Mockito.mock(AccidentService.class);
-        }
-
-        @Bean
-        public AccidentTypeService accidentTypeService() {
-            return Mockito.mock(AccidentTypeService.class);
-        }
-
-        @Bean
-        public RuleService ruleService() {
-            return Mockito.mock(RuleService.class);
-        }
-    }
 
     @Test
     @WithMockUser
