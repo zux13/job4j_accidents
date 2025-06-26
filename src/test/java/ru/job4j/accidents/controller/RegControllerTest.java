@@ -6,9 +6,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.job4j.accidents.config.TestConfiguration;
+import ru.job4j.accidents.config.TestConfig;
 import ru.job4j.accidents.model.Authority;
 import ru.job4j.accidents.repository.SpringDataAuthorityRepository;
 import ru.job4j.accidents.repository.SpringDataUserRepository;
@@ -18,8 +19,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(RegController.class)
-@Import(TestConfiguration.class)
+@Import(TestConfig.class)
 @AutoConfigureMockMvc(addFilters = false)
+@ActiveProfiles("test-mock")
 class RegControllerTest {
 
     @Autowired

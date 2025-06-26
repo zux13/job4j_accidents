@@ -3,6 +3,7 @@ package ru.job4j.accidents.config;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.job4j.accidents.repository.SpringDataAuthorityRepository;
 import ru.job4j.accidents.repository.SpringDataUserRepository;
@@ -11,7 +12,8 @@ import ru.job4j.accidents.service.AccidentTypeService;
 import ru.job4j.accidents.service.RuleService;
 
 @Configuration
-public class TestConfiguration {
+@Profile("test-mock")
+public class TestConfig {
 
     @Bean
     public AccidentService accidentService() {
